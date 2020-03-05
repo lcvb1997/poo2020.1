@@ -1,0 +1,90 @@
+package projetocarro;
+
+import java.util.Scanner;
+
+public class Carro {
+	int nPessoas = 0;
+	int maxPessoas = 5;
+	int gas = 0;
+	int gasMax = 50;
+	float km = 0;
+	float kmTotal = 0;
+
+	void embarcar(int qtd) {
+		if(qtd < 0)
+			return;
+		if(qtd + this.nPessoas >= this.maxPessoas) {
+			System.out.println("Ta lotado");
+			return;
+		}
+		this.nPessoas += qtd;
+		System.out.println("um pouco mais");
+	}
+	void desembarcar(int qtd) {
+		if(qtd < 0)
+			return;
+		if(this.nPessoas < qtd) {
+			System.out.println("tem ngm no carro, ta vendo coisa é?");
+			return;
+		}
+		this.nPessoas -= qtd;
+		System.out.println("va com Deus");
+	}
+
+	void abastecer(int qtd) {
+		if(qtd < 0)
+			return;
+		if(qtd + this.gas > this.gasMax) {
+			System.out.println("tanque ta chei");
+			return;
+		}
+		this.gas += qtd;
+		System.out.println("Bota gasosa ai");
+	}
+	void andar(float qtd) {
+		if(qtd < 0)
+			return;
+		if(qtd + this.km > this.kmTotal) {
+			System.out.println("da pra ir n doido");
+			return;
+		}
+		this.km += qtd;
+		System.out.println("da pra ir mais um pouco");
+	}
+
+	void show() {
+		System.out.println("Carro: nPessoas = " + this.nPessoas);
+		System.out.println("Gasolina:" + this.gas);
+		System.out.println("KM" + this.km);
+	}
+
+
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		Carro carro = new Carro();
+		while(true) {
+			String line = scanner.nextLine();
+			String ui[] = line.split(" ");
+			if(ui[0].equals("end")) {
+				break;
+			}else if(ui[0].equals("show")) {
+				carro.show();
+			}else if(ui[0].equals("embarcar")) {
+				int qtd = Integer.parseInt(ui[1]);
+				carro.embarcar(qtd);
+			}else if(ui[0].equals("desembarcar")) {
+				int qtd = Integer.parseInt(ui[1]);
+				carro.desembarcar(qtd);
+			}else if(ui[0].equals("abastecer")) {
+				int qtd = Integer.parseInt(ui[1]);
+				carro.abastecer(qtd);
+			}else if(ui[0].equals("andar")) {
+				float qtd = Float.parseFloat(ui[1]);
+				carro.andar(qtd);
+			}else {
+				System.out.println("Comando inválido");
+			}
+		}
+		scanner.close();
+	}
+}
